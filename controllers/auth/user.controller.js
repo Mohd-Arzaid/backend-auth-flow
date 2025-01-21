@@ -287,7 +287,7 @@ export const resetPasswordToken = async (req, res) => {
 
     const resetPasswordToken = crypto.randomBytes(20).toString("hex");
 
-    await User.findOneAndUpdate(
+    const updatedDetails = await User.findOneAndUpdate(
       { email: email },
       {
         resetPasswordToken: resetPasswordToken,
@@ -295,6 +295,7 @@ export const resetPasswordToken = async (req, res) => {
       },
       { new: true }
     );
+    // console.log("DETAILS", updatedDetails);
 
     const url = `${process.env.FRONTEND_URL}/update-password/${resetPasswordToken}`;
 
